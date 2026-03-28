@@ -50,6 +50,7 @@ def extract_ridge_components(binary, enhanced, min_size=20):
 
     return components, thinned
 
+
 def build_affinity_matrix(components, max_dist=80, ori_weight=0.7, spatial_weight=0.3):
     n         = len(components)
     centroids = np.array([c['centroid']    for c in components])
@@ -75,6 +76,7 @@ def build_affinity_matrix(components, max_dist=80, ori_weight=0.7, spatial_weigh
 
     return affinity
 
+
 def cluster_components(components, affinity):
     n = len(components)
     if n < 2: return [0] * n
@@ -86,13 +88,13 @@ def cluster_components(components, affinity):
         features = np.array([[np.cos(2 * c['orientation']), np.sin(2 * c['orientation'])] for c in components])
         try:
             return KMeans(n_clusters=2, n_init=20, random_state=42).fit_predict(features).tolist()
-        except:
+        except Exception:
             return [0] * n
     try:
         sc = SpectralClustering(n_clusters=2, affinity='precomputed',
                                 n_init=30, assign_labels='kmeans', random_state=42)
         return sc.fit_predict(affinity_stable).tolist()
-    except:
+    except Exception:
         features = []
         max_cy = max(c['centroid'][0] for c in components) + 1
         max_cx = max(c['centroid'][1] for c in components) + 1
@@ -102,8 +104,9 @@ def cluster_components(components, affinity):
                               c['centroid'][1]/max_cx*0.5, c['centroid'][0]/max_cy*0.5])
         try:
             return KMeans(n_clusters=2, n_init=20, random_state=42).fit_predict(np.array(features)).tolist()
-        except:
+        except Exception:
             return [0] * n
+
 
 def spatial_fallback_split(binary):
     h, w   = binary.shape
@@ -121,6 +124,7 @@ def spatial_fallback_split(binary):
         sep_1[(binary > 0) & (np.arange(h)[:, None] <  mid)] = 255
         sep_2[(binary > 0) & (np.arange(h)[:, None] >= mid)] = 255
     return sep_1, sep_2
+
 
 def reconstruct_full_ridges(components, labels, binary, thinned):
     h, w       = binary.shape
@@ -144,6 +148,7 @@ def reconstruct_full_ridges(components, labels, binary, thinned):
     sep_2[ridge & (dist0  > dist1)] = 255
 
     return sep_1, sep_2
+
 
 def refine_boundary(sep_1, sep_2, enhanced, block_size=12, iterations=3):
     h, w = enhanced.shape
@@ -188,6 +193,7 @@ def refine_boundary(sep_1, sep_2, enhanced, block_size=12, iterations=3):
                 sep_2[y, x] = 0; sep_1[y, x] = 255
 
     return sep_1, sep_2
+
 
 def clean_separation(sep, min_size=20):
     num_labels, labels, stats, _ = cv2.connectedComponentsWithStats(sep, 8)
