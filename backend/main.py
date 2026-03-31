@@ -193,12 +193,23 @@ async def separate_fingerprints(file: UploadFile = File(...)):
             return {
                 "status": "warning",
                 "message": "No overlap detected.",
+                "overlap_base64": None, # ADDED THIS LINE
                 "fp1_base64": f"data:image/png;base64,{image_to_base64(image)}",
                 "fp2_base64": None
             }
 
         # 3. Scale bbox and Erase
         bbox = scale_bbox(bbox_300, (orig_w, orig_h))
+        
+        # ==========================================
+        # NEW: Create Overlap Detected Image 
+        # (Draws a green bounding box over the detection)
+        # ==========================================
+        overlap_viz = image.copy()
+        cv2.rectangle(overlap_viz, (bbox[0], bbox[1]), (bbox[2], bbox[3]), (0, 255, 0), 3)
+        overlap_base64_data = image_to_base64(overlap_viz)
+        # ==========================================
+
         erased_img = erase_with_ellipse(image, bbox)
 
         # 4. Clustering & Separation Pipeline
@@ -224,6 +235,7 @@ async def separate_fingerprints(file: UploadFile = File(...)):
             "status": "success",
             "message": "Fingerprints separated successfully.",
             "confidence": float(score),
+            "overlap_base64": f"data:image/png;base64,{overlap_base64_data}", # ADDED THIS LINE
             "fp1_base64": f"data:image/png;base64,{image_to_base64(fp1)}",
             "fp2_base64": f"data:image/png;base64,{image_to_base64(fp2)}"
         }
