@@ -328,7 +328,7 @@ export default function Home() {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
                               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="p-2 bg-white/[0.02] rounded-3xl border border-white/5">
                                 <div className="px-6 py-4 flex items-center justify-between border-b border-white/5">
-                                  <p className="text-sm font-bold text-slate-300 tracking-wide">Primary Subject</p>
+                                  <p className="text-sm font-bold text-slate-300 tracking-wide">ALPHA COMPONENT</p>
                                   <span className="w-2 h-2 rounded-full bg-cyan-500 shadow-[0_0_10px_rgba(34,211,238,1)]"></span>
                                 </div>
                                 <div className="aspect-[3/4] bg-black/40 rounded-b-[1.3rem] overflow-hidden p-6 relative">
@@ -338,7 +338,7 @@ export default function Home() {
 
                               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="p-2 bg-white/[0.02] rounded-3xl border border-white/5">
                                 <div className="px-6 py-4 flex items-center justify-between border-b border-white/5">
-                                  <p className="text-sm font-bold text-slate-300 tracking-wide">Secondary Subject</p>
+                                  <p className="text-sm font-bold text-slate-300 tracking-wide">BETA COMPONENT</p>
                                   <span className="w-2 h-2 rounded-full bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,1)]"></span>
                                 </div>
                                 <div className="aspect-[3/4] bg-black/40 rounded-b-[1.3rem] overflow-hidden p-6 relative">
