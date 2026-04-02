@@ -160,7 +160,7 @@ export default function Home() {
                             </div>
                           </div>
                           <div className="flex flex-col justify-center">
-                            <p className="text-2xl font-bold text-white mb-6">"{result.message}"</p>
+                            <p className="text-2xl font-bold text-white mb-6">"Overlap Detected Successfully"</p>
                             <div className="flex flex-col gap-4">
                               <button onClick={() => setShowSeparation(true)} className="w-full py-5 bg-cyan-500 text-white rounded-2xl font-black text-lg hover:bg-cyan-400 transition-all flex items-center justify-center gap-3">
                                 <Layers size={24} /> Generate Separate Layers
