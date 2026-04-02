@@ -10,7 +10,7 @@ export default function Home() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [progress, setProgress] = useState(0);
   const [result, setResult] = useState<any>(null);
-  const [showSeparation, setShowSeparation] = useState(false); // New state for Step B
+  const [showSeparation, setShowSeparation] = useState(false);
 
   const formatConfidence = (val: any) => {
     const num = parseFloat(val);
@@ -41,7 +41,9 @@ export default function Home() {
     }, 150);
 
     try {
-      const res = await axios.post('http://127.0.0.1:8000/api/separate-fingerprints', formData, {
+      // FIXED: Swapped hardcoded localhost for the Vercel Environment Variable
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
+      const res = await axios.post(`${apiUrl}/api/separate-fingerprints`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
       clearInterval(interval);
@@ -153,7 +155,6 @@ export default function Home() {
                           <div className="space-y-4">
                             <p className="text-cyan-500 text-xs font-bold uppercase tracking-widest">Overlap Region Mapping</p>
                             <div className="aspect-square bg-gray-900 rounded-3xl border border-white/10 overflow-hidden group relative">
-                              {/* Assuming backend returns result.overlap_base64 */}
                               <img src={result.overlap_base64 || result.fp1_base64} className="w-full h-full object-contain" />
                               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                             </div>
