@@ -285,7 +285,7 @@ export default function Home() {
                               <div className="flex flex-col justify-center space-y-8">
                                 <div className="bg-white/5 border border-white/5 rounded-2xl p-6">
                                   <p className="text-sm text-slate-400 uppercase tracking-widest mb-2 font-bold">Diagnostic Output</p>
-                                  <p className="text-xl font-medium text-white leading-relaxed">"{result.message}"</p>
+                                  <p className="text-xl font-medium text-white leading-relaxed">"Overlap Detected Successfully"</p>
                                 </div>
                                 <div className="flex flex-col gap-4">
                                   <button
